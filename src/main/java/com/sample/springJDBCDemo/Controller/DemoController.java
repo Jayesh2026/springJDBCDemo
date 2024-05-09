@@ -3,8 +3,6 @@ package com.sample.springJDBCDemo.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sample.Model.User;
+import com.sample.springJDBCDemo.Model.User;
 import com.sample.springJDBCDemo.Service.DemoService;
 
 @RestController
@@ -24,20 +22,14 @@ public class DemoController {
     DemoService demoService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> saveUser(@RequestBody User user){
-        demoService.saveUser(user);
-        String mssg = user.getName()+" your account created succefully!!!!";
-        return ResponseEntity.status(HttpStatus.CREATED).body(mssg);
+    public User saveUser(@RequestBody User user){
+        User userSaved = demoService.saveUser(user);
+        return userSaved;
     }
 
-
-    @GetMapping("/getAll-user")
-    public ResponseEntity<List<User>> getAllUser(){
+    public List<User> getAllUser(){
         List<User> userList = demoService.getAllUser();
-        if(userList.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return ResponseEntity.ok(userList);
+        return userList;
     }
 
     @GetMapping("/getUser-byId/{id}")
@@ -55,5 +47,10 @@ public class DemoController {
     @DeleteMapping("/delete-user")
     public void deleteUser(@RequestParam("id") int id){
         demoService.deleteUserById(id);
+    }
+
+    @GetMapping("/hello")
+    public String Hello(){
+        return "Hello";
     }
 }
