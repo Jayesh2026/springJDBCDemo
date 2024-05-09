@@ -10,17 +10,18 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.sample.Model.User;
+
+import com.sample.springJDBCDemo.Model.User;
 
 @Repository
 public class DemoRepository {
     
     @Autowired
-    DataSource db;
+    DataSource dbConection;
 
     public User saveUser(User u){
         try {
-            Connection connection = db.getConnection();
+            Connection connection = dbConection.getConnection();
             PreparedStatement psmt = connection.prepareStatement("INSERT INTO users (id, name, city) VALUES (?, ?, ?)");
             psmt.setInt(1, u.getId());
             psmt.setString(2, u.getName());
@@ -36,7 +37,7 @@ public class DemoRepository {
 
     public User deleted(int id){
         try {
-            Connection connection = db.getConnection();
+            Connection connection = dbConection.getConnection();
             PreparedStatement psmt = connection.prepareStatement("DELETE FROM users WHERE id = ?");
             psmt.setInt(1, id);
             psmt.executeUpdate();
@@ -49,7 +50,7 @@ public class DemoRepository {
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try {
-            Connection connection = db.getConnection();
+            Connection connection = dbConection.getConnection();
             PreparedStatement psmt = connection.prepareStatement("SELECT * FROM users");
             ResultSet rs = psmt.executeQuery();
             while (rs.next()) {
@@ -71,7 +72,7 @@ public class DemoRepository {
     public User getUserById(int id) {
         User user = null;
         try {
-            Connection con = db.getConnection();
+            Connection con = dbConection.getConnection();
             PreparedStatement psmt = con.prepareStatement("SELECT * FROM users WHERE id = ?");
             psmt.setInt(1, id);
             ResultSet rs = psmt.executeQuery();
@@ -91,9 +92,9 @@ public class DemoRepository {
         return user;
     }
 
-    public void updateUser(User user) {
+    public User updateUser(User user) {
         try {
-            Connection con = db.getConnection();
+            Connection con = dbConection.getConnection();
             PreparedStatement psmt = con.prepareStatement("UPDATE users SET name = ?, city = ? WHERE id = ?");
             psmt.setString(1, user.getName());
             psmt.setString(2, user.getCity());
@@ -104,6 +105,7 @@ public class DemoRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return user;
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sample.Model.User;
+import com.sample.springJDBCDemo.Model.User;
 import com.sample.springJDBCDemo.Repository.DemoRepository;
 
 @Service
@@ -23,15 +23,16 @@ public class DemoService {
     }
 
     public List<User> getAllUser(){
-        return demoRepository.getAllUsers();
+        List<User> users = demoRepository.getAllUsers();
+        return users;
     }
 
-    public void updateUser(User user){
-        demoRepository.updateUser(user);
+    public User updateUser(User user){
+        return demoRepository.updateUser(user);
     }
 
-    public User deleteUserById(int id){
-        return demoRepository.deleted(id);
+    public void deleteUserById(int id){
+        demoRepository.deleted(id);
     }
 
 }
