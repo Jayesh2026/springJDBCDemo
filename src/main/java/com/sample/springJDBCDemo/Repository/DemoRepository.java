@@ -1,4 +1,4 @@
-package com.sample.springJDBCDemo.Repository;
+package com.sample.springJDBCDemo.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.sample.springJDBCDemo.Model.User;
+import com.sample.springJDBCDemo.model.User;
 
 @Repository
 public class DemoRepository {
@@ -19,23 +19,23 @@ public class DemoRepository {
     @Autowired
     DataSource dbConection;
 
-    public User saveUser(User u){
+    public User saveUser(User user){
         try {
             Connection connection = dbConection.getConnection();
             PreparedStatement psmt = connection.prepareStatement("INSERT INTO users (id, name, city) VALUES (?, ?, ?)");
-            psmt.setInt(1, u.getId());
-            psmt.setString(2, u.getName());
-            psmt.setString(3, u.getCity());
+            psmt.setInt(1, user.getId());
+            psmt.setString(2, user.getName());
+            psmt.setString(3, user.getCity());
             psmt.executeUpdate();
             psmt.close();
             connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return u;
+        return user;
     }
 
-    public User deleted(int id){
+    public void deleted(int id){
         try {
             Connection connection = dbConection.getConnection();
             PreparedStatement psmt = connection.prepareStatement("DELETE FROM users WHERE id = ?");
@@ -44,7 +44,6 @@ public class DemoRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
     }
 
     public List<User> getAllUsers() {

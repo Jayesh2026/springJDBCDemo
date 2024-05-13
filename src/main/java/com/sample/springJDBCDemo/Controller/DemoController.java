@@ -1,4 +1,4 @@
-package com.sample.springJDBCDemo.Controller;
+package com.sample.springJDBCDemo.controller;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sample.springJDBCDemo.Model.User;
-import com.sample.springJDBCDemo.Service.DemoService;
+import com.sample.springJDBCDemo.model.User;
+import com.sample.springJDBCDemo.service.DemoService;
 
 @RestController
 public class DemoController {
@@ -27,6 +27,7 @@ public class DemoController {
         return userSaved;
     }
 
+    @GetMapping("/get-allUsers")
     public List<User> getAllUser(){
         List<User> userList = demoService.getAllUser();
         return userList;
