@@ -1,12 +1,12 @@
-package com.sample.springJDBCDemo.Service;
+package com.sample.springJDBCDemo.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sample.springJDBCDemo.Model.User;
-import com.sample.springJDBCDemo.Repository.DemoRepository;
+import com.sample.springJDBCDemo.model.User;
+import com.sample.springJDBCDemo.repository.DemoRepository;
 
 @Service
 public class DemoService {

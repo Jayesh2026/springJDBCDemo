@@ -1,4 +1,4 @@
-package com.sample.springJDBCDemo.Model;
+package com.sample.springJDBCDemo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
